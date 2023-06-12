@@ -1,0 +1,23 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.btn{
+    width: 100%;
+    background-color: rgb(0, 64, 255);
+}
+
+ .bi{
+    cursor: pointer;
+ }
+
+.card{
+    background: #2b2a2a;
+    color: white;
+}
+ .fixed{
+    position: sticky;
+        top: 0;
+ }
