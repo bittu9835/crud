@@ -21,3 +21,29 @@
     position: sticky;
         top: 0;
  }
+
+ .w8{
+    width: 8%;
+ }
+ .thead th{
+    font-size: 16px;
+    text-align: center;
+ }
+
+ .tbody td{
+   font-size: 16px;
+ }
+
+ @media screen and (max-width: 500px) {
+    .w8{
+        width: 5%;
+     }
+    .thead th{
+        font-size: 10px;
+     }
+
+     .tbody td{
+        font-size: 10px;
+        padding: 4px;
+      }
+ }

@@ -43,7 +43,7 @@ const getTable = () => {
     let form = ``;
     tabledata.map((e,i)=>{
         form = form +
-        `<tr>
+        `<tr class="tbody">
         <td>${i+1}</td>
         <td>${e.name}</td>
          <td>${e.email}</td>
