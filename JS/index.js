@@ -1,107 +1,112 @@
 //Creat Array
 const tabledata = [];
-
-//Creat Form
-let formd =`
-<div class="card p-3" style="width: 35rem;"> 
-             
-                <div class="mb-3">
-                    <label for="Name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Your Name">
-                  </div>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Email address:</label>
-                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Your Email">
-                </div>
-                <div class="mb-3">
-                  <label for="Phone" class="form-label">Phone:</label>
-                  <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone No.">
-                </div>
-                <button type="submit" class="btn btn-primary" onclick="getdata()">Submit</button>
-             
-        </div>`
-        document.getElementById('form').innerHTML=formd
-//Get data in input abd push data in array
-const getdata = () => {
-    let name = document.getElementById('name');
-    let email = document.getElementById('email');
-    let phone = document.getElementById('phone');
-    const data = {
-        name: name.value,
-        email: email.value,
-        phone: phone.value
-    };
-    tabledata.push(data);
-    name.value  = '',
-    email.value = '',
-    phone.value = ''
-    getTable();
-};
-
 //print data in table
 const getTable = () => {
-    let form = ``;
-    tabledata.map((e,i)=>{
-        form = form +
-        `<tr class="tbody">
-        <td>${i+1}</td>
+  let form = ``;
+  tabledata.map((e, i) => {
+    form = form +
+      `<tr class="tbody">
+        <td>${i + 1}</td>
         <td>${e.name}</td>
          <td>${e.email}</td>
          <td>${e.phone}</td>
          <td class="text-center">
-         <i class="bi bi-pencil" onclick="editData(${i})"></i>
+         <i class="bi bi-pencil" onclick="handleEdit(${i})"></i>
          </td>
          <td class="text-center">
          <i class="bi bi-trash3" onclick="deleteData(${i})"></i>
          </td>
         </tr>`;
-    })
- 
-    document.getElementById('table').innerHTML =form;
+  })
+
+  document.getElementById('table').innerHTML = form;
 };
+getTable();
+
+var editIndex = -1;
+var form = {
+  name:{
+    input:document.getElementById('name'),
+    alert:document.getElementById('alert1')
+  },
+  email:{
+    input:document.getElementById('email'),
+    alert:document.getElementById('alert2')
+  },
+  phone:{
+    input:document.getElementById('phone'),
+    alert:document.getElementById('alert3')
+  },
+  btn:document.getElementById('sbtn')
+};
+const handleChange = (inputKey)=>{
+  if(form[inputKey].input.value){ 
+    /* 
+      inputKey=> 'email' 
+      1. form.email.alert.innerHtml = ''
+      2. form['email'].alert.innerHTML = ''
+    */
+    form[inputKey].alert.innerHTML = '';
+  }else{
+    form[inputKey].alert.innerHTML = 'Required field.';
+  }
+}
+//convert name to upper case
+const uppercase = () => {
+  let nam = document.getElementById('name');
+  nam.value = nam.value.toUpperCase();
+}
+
+//Get data in input abd push data in array
+const changeTableData = () => {
+  
+  form.name.alert.innerHTML = '';
+  form.email.alert.innerHTML = '';
+  form.phone.alert.innerHTML = '';
+  let allFilled = true;
+  if(!form.name.input.value){ // "", '', null, undefined, null, 0, false
+    form.name.alert.innerHTML = 'Required field.'
+    allFilled = false;
+  }
+  if(!form.email.input.value){ // "", '', null, undefined, null, 0, false
+    form.email.alert.innerHTML = 'Required field.'
+    allFilled = false;
+  }
+  if(!form.phone.input.value){ // "", '', null, undefined, null, 0, false
+    form.phone.alert.innerHTML = 'Required field.'
+    allFilled = false;
+  }
+  if(!allFilled){
+    return;
+  }
+  const data = {
+    name: form.name.input.value,
+    email: form.email.input.value,
+    phone: form.phone.input.value
+  };
+  if(editIndex < 0){
+    tabledata.push(data);
+  }else{
+    tabledata[editIndex] = data;
+  }
+  editIndex = -1;
+  form.name.input.value = '';
+  form.email.input.value = '';
+  form.phone.input.value = '';
+  form.btn.innerHTML = 'Submit';
+  getTable();
+};
+const handleEdit = (i)=>{
+  let data = tabledata[i]; // {email:"", name:"", phone:""}
+  form.name.input.value = data.name;
+  form.email.input.value = data.email;
+  form.phone.input.value = data.phone;
+  form.btn.innerHTML = 'Update'
+  editIndex = i;
+}
 
 //Delete opration
-const deleteData=(i)=>{
-     tabledata.splice(i,1)
-     getTable();
+const deleteData = (i) => {
+  tabledata.splice(i, 1)
+  getTable();
 }
-
-//edit Data in Form
-const editData=(i)=>{
-   let updateForm = ` <div class="card p-3" style="width: 35rem;"> 
-             
-   <div class="mb-3">
-       <label for="Name" class="form-label">Name:</label>
-       <input type="text" value="${tabledata[i].name}" class="form-control" id="newName" placeholder="Enter Your Name">
-     </div>
-   <div class="mb-3">
-     <label for="exampleInputEmail1" class="form-label">Email address:</label>
-     <input type="email" value="${tabledata[i].email}" class="form-control" id="newEmail" aria-describedby="emailHelp" placeholder="Enter Your Email">
-   </div>
-   <div class="mb-3">
-     <label for="Phone" class="form-label">Phone:</label>
-     <input type="text" value="${tabledata[i].phone}" class="form-control" id="newPhone" placeholder="Enter Your Phone No.">
-   </div>
-   <button type="submit" class="btn btn-primary" onclick="upDate(${i})">Update</button>
-
-</div>`
-document.getElementById('form').innerHTML=updateForm
-}
-
-//after edit, update data
-const upDate=(i)=>{
-    let newName = document.getElementById('newName');
-    let newEmail = document.getElementById('newEmail');
-    let newPhone = document.getElementById('newPhone');
-
-    tabledata[i] = {
-        name: newName.value,
-        email: newEmail.value,
-        phone: newPhone.value
-    };
-  
-    getTable();
-    document.getElementById('form').innerHTML=formd
-}
-
-getTable();

@@ -15,7 +15,24 @@
   </head>
   <body>
       <div class="container pt-3 pb-3 d-flex justify-content-center "  id="form">
-          
+        <div class="card p-3" style="width: 35rem;">       
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Your Name" onblur="uppercase()" onkeyup="handleChange('name')">
+                <p id="alert1" class="alert"></p>
+              </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address:</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Your Email" onkeyup="handleChange('email')">
+              <p id="alert2" class="alert"></p>
+            </div>
+            <div class="mb-3">
+              <label for="Phone" class="form-label">Phone:</label>
+              <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone No." onkeyup="handleChange('phone')">
+              <p id="alert3" class="alert"></p>
+            </div>
+            <button type="submit" id="sbtn" class="btn btn-primary" onclick="changeTableData()">Submit</button>
+    </div>
       </div>
       <div class="table-deta ">
         <table class="table table-dark table-striped text-center ">
