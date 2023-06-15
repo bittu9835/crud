@@ -48,7 +48,7 @@ const handleChange = (inputKey)=>{
     */
     form[inputKey].alert.innerHTML = '';
   }else{
-    form[inputKey].alert.innerHTML = 'Required field.';
+    form[inputKey].alert.innerHTML = 'Required field!';
   }
 }
 //convert name to upper case
@@ -63,17 +63,23 @@ const changeTableData = () => {
   form.name.alert.innerHTML = '';
   form.email.alert.innerHTML = '';
   form.phone.alert.innerHTML = '';
+  form.name.input.style.borderColor = "";
+  form.email.input.style.borderColor = "";
+  form.phone.input.style.borderColor = "";
   let allFilled = true;
   if(!form.name.input.value){ // "", '', null, undefined, null, 0, false
     form.name.alert.innerHTML = 'Required field.'
+    form.name.input.style.borderColor = "red"
     allFilled = false;
   }
   if(!form.email.input.value){ // "", '', null, undefined, null, 0, false
     form.email.alert.innerHTML = 'Required field.'
+    form.email.input.style.borderColor = "red"
     allFilled = false;
   }
   if(!form.phone.input.value){ // "", '', null, undefined, null, 0, false
     form.phone.alert.innerHTML = 'Required field.'
+    form.phone.input.style.borderColor = "red"
     allFilled = false;
   }
   if(!allFilled){
