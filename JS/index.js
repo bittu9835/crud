@@ -1,5 +1,6 @@
 //Creat Array
-const tabledata = [];
+// const tabledata = [];
+tabledata = JSON.parse(localStorage.getItem('crudData')) ?? [];
 //print data in table
 const getTable = () => {
   let form = ``;
@@ -92,8 +93,10 @@ const changeTableData = () => {
   };
   if(editIndex < 0){
     tabledata.push(data);
+    localStorage.setItem('crudData',JSON.stringify(tabledata));
   }else{
     tabledata[editIndex] = data;
+    localStorage.setItem('crudData',JSON.stringify(tabledata));
   }
   editIndex = -1;
   form.name.input.value = '';
@@ -114,5 +117,6 @@ const handleEdit = (i)=>{
 //Delete opration
 const deleteData = (i) => {
   tabledata.splice(i, 1)
+  localStorage.setItem('crudData',JSON.stringify(tabledata));
   getTable();
 }
